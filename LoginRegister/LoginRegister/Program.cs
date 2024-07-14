@@ -1,7 +1,12 @@
+using LoginRegister.Database;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ApplicationData>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("RegisterLoginUser")));
 
 var app = builder.Build();
 
@@ -22,6 +27,9 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+pattern: "{controller=CreateNewAccount}/{action=CreateAccountPage}/{id?}");
+    
+/*pattern: "{controller=Home}/{action=Index}/{id?}");*/
 
+/*pattern: "{controller=CreateAccount}/{action=CreateAccountPage}/{id?}");*/
 app.Run();
